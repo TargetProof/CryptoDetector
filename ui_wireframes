@@ -1,0 +1,126 @@
+Cryptojacking Detection Web Application - UI Wireframes
+Landing Page
++------------------------------------------+
+|  [Logo] Cryptojacking Detection Tool     |
+|  [Nav: Home | Dashboard | Scan | Docs]   |
++------------------------------------------+
+|                                          |
+|  +------------------------------------+  |
+|  |                                    |  |
+|  |  Detect Hidden Cryptocurrency      |  |
+|  |  Miners in Your Environment        |  |
+|  |                                    |  |
+|  |  [Button: Detect Hidden Miners Now]|  |
+|  |                                    |  |
+|  +------------------------------------+  |
+|                                          |
+|  +----------+  +----------+  +--------+  |
+|  | Feature 1 |  | Feature 2 |  | Feat 3|  |
+|  | Icon      |  | Icon      |  | Icon  |  |
+|  | Text      |  | Text      |  | Text  |  |
+|  +----------+  +----------+  +--------+  |
+|                                          |
+|  +------------------------------------+  |
+|  |                                    |  |
+|  |  How It Works                      |  |
+|  |  [Step 1] -> [Step 2] -> [Step 3]  |  |
+|  |                                    |  |
+|  +------------------------------------+  |
+|                                          |
++------------------------------------------+
+|  [Footer: About | Contact | Privacy]     |
++------------------------------------------+
+Dashboard Page
++------------------------------------------+
+|  [Logo] Cryptojacking Detection Tool     |
+|  [Nav: Home | Dashboard | Scan | Docs]   |
++------------------------------------------+
+|                                          |
+|  +--------+  +--------+  +--------+     |
+|  | Total  |  | High   |  | Medium |     |
+|  | Scans  |  | Alerts |  | Alerts |     |
+|  | [Num]  |  | [Num]  |  | [Num]  |     |
+|  +--------+  +--------+  +--------+     |
+|                                          |
+|  +-------------------+  +-------------+  |
+|  |                   |  |             |  |
+|  | Threat            |  | System      |  |
+|  | Distribution      |  | Resource    |  |
+|  | [Pie Chart]       |  | Usage       |  |
+|  |                   |  | [Bar Chart] |  |
+|  +-------------------+  +-------------+  |
+|                                          |
+|  +------------------------------------+  |
+|  | Recent Scans                       |  |
+|  | +------+--------+--------+-------+ |  |
+|  | | Date | Target | Status | Alerts| |  |
+|  | +------+--------+--------+-------+ |  |
+|  | | ...  | ...    | ...    | ...   | |  |
+|  | +------+--------+--------+-------+ |  |
+|  +------------------------------------+  |
+|                                          |
+|  [Button: Start New Scan]                |
+|                                          |
++------------------------------------------+
+Scan Configuration Page
++------------------------------------------+
+|  [Logo] Cryptojacking Detection Tool     |
+|  [Nav: Home | Dashboard | Scan | Docs]   |
++------------------------------------------+
+|                                          |
+|  +------------------------------------+  |
+|  | Scan Configuration                 |  |
+|  |                                    |  |
+|  | Target Selection:                  |  |
+|  | [ ] Local System                   |  |
+|  | [ ] AWS Cloud                      |  |
+|  | [ ] Google Cloud                   |  |
+|  | [ ] Azure                          |  |
+|  | [ ] Custom Directory               |  |
+|  | [Input: /path/to/directory]        |  |
+|  |                                    |  |
+|  | Scan Options:                      |  |
+|  | Sensitivity: [Low|Medium|High]     |  |
+|  | Workers: [Slider: 1-8]             |  |
+|  | Output Format: [Text|JSON|CSV]     |  |
+|  |                                    |  |
+|  | Advanced Options:                  |  |
+|  | [Expandable Section]               |  |
+|  |                                    |  |
+|  | [Button: Cancel] [Button: Start]   |  |
+|  +------------------------------------+  |
+|                                          |
++------------------------------------------+
+Results Page
++------------------------------------------+
+|  [Logo] Cryptojacking Detection Tool     |
+|  [Nav: Home | Dashboard | Scan | Docs]   |
++------------------------------------------+
+|                                          |
+|  +------------------------------------+  |
+|  | Scan Results                       |  |
+|  | Scan ID: abc123                    |  |
+|  | Date: 2025-03-18                   |  |
+|  | Duration: 2m 34s                   |  |
+|  +------------------------------------+  |
+|                                          |
+|  +----------+  +-------------------+    |
+|  | Summary  |  | Severity          |    |
+|  | Total: 12|  | Distribution      |    |
+|  | High: 3  |  | [Pie Chart]       |    |
+|  | Med: 5   |  |                   |    |
+|  | Low: 4   |  |                   |    |
+|  +----------+  +-------------------+    |
+|                                          |
+|  +------------------------------------+  |
+|  | Filter: [All|High|Medium|Low]      |  |
+|  | +------+--------+--------+-------+ |  |
+|  | | Type | Source | Sev.   | Score | |  |
+|  | +------+--------+--------+-------+ |  |
+|  | | ...  | ...    | ...    | ...   | |  |
+|  | +------+--------+--------+-------+ |  |
+|  +------------------------------------+  |
+|                                          |
+|  [Button: Export PDF] [Button: Export CSV]|
+|                                          |
++------------------------------------------+
