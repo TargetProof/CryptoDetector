@@ -1,31 +1,35 @@
 // src/app/api/o365scan/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticateO365 } from '@/lib/o365/auth';
-import { scanO365Tenant, O365ScanOptions } from '@/lib/o365/scanner';
+import { scanO365Tenant } from '@/lib/o365/scanner';
+
+// Add this line to make the route dynamic
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
+    // Parse the request body
     const body = await request.json();
     const { tenantId, clientId, clientSecret, scanOptions } = body;
     
     // Validate required parameters
-    if (!tenantId) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: tenantId' },
-        { status: 400 }
+    if (!tenantId || !clientId || !clientSecret) {
+     return NextResponse.json(
+       { error: 'Missing required authentication parameters' },
+       { status: 400 }
       );
     }
     
     console.log(`Received scan request for tenant: ${tenantId}`);
     
-    // Authenticate with O365
+    // Authenticate with O365 using real credentials
     const authResult = await authenticateO365({
-      tenantId,
-      clientId: clientId || 'demo-client-id',
-      clientSecret: clientSecret || 'demo-client-secret',
-      scope: 'https://graph.microsoft.com/.default'
+     tenantId,
+     clientId,
+     clientSecret,
+     scope: 'https://graph.microsoft.com/.default'
     }) ;
-    
+
     if (!authResult.authenticated) {
       return NextResponse.json(
         { error: authResult.error || 'Authentication failed' },
@@ -37,7 +41,7 @@ export async function POST(request: NextRequest) {
     const scanResult = await scanO365Tenant(
       authResult,
       tenantId,
-      scanOptions as O365ScanOptions || {}
+      scanOptions || {}
     );
     
     // Return the scan results

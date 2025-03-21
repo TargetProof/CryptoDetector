@@ -1,14 +1,12 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'export',
-  // Ensure compatibility with TypeScript and React versions
+  output: 'standalone',
+  // Add this to ensure API routes work correctly
   experimental: {
-    // Remove any experimental features that might cause issues
-    // with the downgraded versions
+    serverActions: true,
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

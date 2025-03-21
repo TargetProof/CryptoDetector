@@ -152,7 +152,7 @@ export default function O365ScanPage() {
 
                           <div className="sm:col-span-4">
                             <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Client ID (Optional for demo)
+                              Client ID (Required)
                             </label>
                             <div className="mt-1">
                               <input
@@ -163,13 +163,14 @@ export default function O365ScanPage() {
                                 onChange={(e) => setClientId(e.target.value)}
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 placeholder="Azure AD Application ID"
+                                required
                               />
                             </div>
                           </div>
 
                           <div className="sm:col-span-4">
                             <label htmlFor="clientSecret" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Client Secret (Optional for demo)
+                              Client Secret (Required)
                             </label>
                             <div className="mt-1">
                               <input
@@ -180,10 +181,11 @@ export default function O365ScanPage() {
                                 onChange={(e) => setClientSecret(e.target.value)}
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 placeholder="Azure AD Application Secret"
+                                required
                               />
                             </div>
                             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                              For demo purposes, you can leave these empty to use mock authentication
+                              Enter the Client ID and Secret from your Azure AD application registration
                             </p>
                           </div>
                         </div>
@@ -356,7 +358,7 @@ export default function O365ScanPage() {
                   </div>
                 </div>
               </div>
-            ) }
+            )}
 
             {scanResult && (
               <div className="mt-8 px-4 sm:px-0">

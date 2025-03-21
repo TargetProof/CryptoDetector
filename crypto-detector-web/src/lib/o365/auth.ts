@@ -23,9 +23,6 @@ export interface AuthResult {
  */
 export async function authenticateO365(options: O365AuthOptions): Promise<AuthResult> {
   try {
-    // For demo purposes, we're returning mock authentication
-    // In a real implementation, this would use Microsoft Graph API
-    
     // Validate required parameters
     if (!options.tenantId || !options.clientId || !options.clientSecret) {
       return {
@@ -34,10 +31,11 @@ export async function authenticateO365(options: O365AuthOptions): Promise<AuthRe
       };
     }
 
-    // In a real implementation, this would be the actual authentication code:
-    /*
+    // Real authentication implementation with Microsoft Graph API
     const tokenEndpoint = `https://login.microsoftonline.com/${options.tenantId}/oauth2/v2.0/token`;
     const scope = options.scope || 'https://graph.microsoft.com/.default';
+    
+    console.log(`Authenticating with tenant: ${options.tenantId}`) ;
     
     const response = await axios.post(tokenEndpoint, 
       new URLSearchParams({
@@ -45,7 +43,7 @@ export async function authenticateO365(options: O365AuthOptions): Promise<AuthRe
         scope: scope,
         client_secret: options.clientSecret,
         grant_type: 'client_credentials'
-      }) ,
+      }),
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -53,19 +51,12 @@ export async function authenticateO365(options: O365AuthOptions): Promise<AuthRe
       }
     );
     
+    console.log('Authentication successful');
+    
     return {
       authenticated: true,
       token: response.data.access_token,
       expiresAt: Date.now() + (response.data.expires_in * 1000)
-    };
-    */
-    
-    // Mock successful authentication
-    console.log(`[Mock] Authenticated with tenant: ${options.tenantId}`);
-    return {
-      authenticated: true,
-      token: `mock-token-${Date.now()}`,
-      expiresAt: Date.now() + (3600 * 1000) // Mock token expires in 1 hour
     };
     
   } catch (error) {
