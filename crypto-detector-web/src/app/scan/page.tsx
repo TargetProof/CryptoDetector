@@ -1,3 +1,4 @@
+// src/app/scan/page.tsx - Updated to include link to O365 scan
 import Link from 'next/link';
 import React from 'react';
 
@@ -43,264 +44,80 @@ export default function ScanPage() {
             <div className="px-4 py-8 sm:px-0">
               <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
-                  <form className="space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
-                    <div className="space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
-                      {/* Target Selection Section */}
-                      <div>
-                        <div>
-                          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Target Selection</h3>
-                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Select the environments you want to scan for cryptojacking activity.
-                          </p>
+                  <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
+                    Select Scan Type
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {/* Office 365 Scan Card */}
+                    <div className="bg-white dark:bg-gray-700 overflow-hidden shadow rounded-lg border border-gray-200 dark:border-gray-600 p-4 hover:shadow-md transition-shadow duration-300">
+                      <div className="flex items-center mb-4">
+                        <div className="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                          <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
                         </div>
-
-                        <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                          <div className="sm:col-span-6">
-                            <fieldset>
-                              <legend className="sr-only">Target Selection</legend>
-                              <div className="space-y-4">
-                                <div className="relative flex items-start">
-                                  <div className="flex items-center h-5">
-                                    <input
-                                      id="local-system"
-                                      name="target-selection"
-                                      type="checkbox"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                  </div>
-                                  <div className="ml-3 text-sm">
-                                    <label htmlFor="local-system" className="font-medium text-gray-700 dark:text-gray-300">Local System</label>
-                                    <p className="text-gray-500 dark:text-gray-400">Scan the local system for cryptojacking indicators.</p>
-                                  </div>
-                                </div>
-
-                                <div className="relative flex items-start">
-                                  <div className="flex items-center h-5">
-                                    <input
-                                      id="aws-cloud"
-                                      name="target-selection"
-                                      type="checkbox"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                  </div>
-                                  <div className="ml-3 text-sm">
-                                    <label htmlFor="aws-cloud" className="font-medium text-gray-700 dark:text-gray-300">AWS Cloud</label>
-                                    <p className="text-gray-500 dark:text-gray-400">Scan AWS EC2, Lambda, ECS, and other services.</p>
-                                  </div>
-                                </div>
-
-                                <div className="relative flex items-start">
-                                  <div className="flex items-center h-5">
-                                    <input
-                                      id="google-cloud"
-                                      name="target-selection"
-                                      type="checkbox"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                  </div>
-                                  <div className="ml-3 text-sm">
-                                    <label htmlFor="google-cloud" className="font-medium text-gray-700 dark:text-gray-300">Google Cloud</label>
-                                    <p className="text-gray-500 dark:text-gray-400">Scan GCP Compute Engine, Cloud Functions, and other services.</p>
-                                  </div>
-                                </div>
-
-                                <div className="relative flex items-start">
-                                  <div className="flex items-center h-5">
-                                    <input
-                                      id="azure"
-                                      name="target-selection"
-                                      type="checkbox"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                  </div>
-                                  <div className="ml-3 text-sm">
-                                    <label htmlFor="azure" className="font-medium text-gray-700 dark:text-gray-300">Azure</label>
-                                    <p className="text-gray-500 dark:text-gray-400">Scan Azure VMs, Functions, and other services.</p>
-                                  </div>
-                                </div>
-
-                                <div className="relative flex items-start">
-                                  <div className="flex items-center h-5">
-                                    <input
-                                      id="custom-directory"
-                                      name="target-selection"
-                                      type="checkbox"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                  </div>
-                                  <div className="ml-3 text-sm">
-                                    <label htmlFor="custom-directory" className="font-medium text-gray-700 dark:text-gray-300">Custom Directory</label>
-                                    <p className="text-gray-500 dark:text-gray-400">Scan a specific directory for cryptojacking indicators.</p>
-                                    <div className="mt-2">
-                                      <input
-                                        type="text"
-                                        name="custom-directory-path"
-                                        id="custom-directory-path"
-                                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                        placeholder="/path/to/directory"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </fieldset>
-                          </div>
-                        </div>
+                        <h3 className="ml-4 text-lg font-medium text-gray-900 dark:text-white">Office 365 Scan</h3>
                       </div>
-
-                      {/* Scan Options Section */}
-                      <div className="pt-8">
-                        <div>
-                          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Scan Options</h3>
-                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Configure how the scan should be performed.
-                          </p>
-                        </div>
-
-                        <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                          <div className="sm:col-span-3">
-                            <label htmlFor="sensitivity" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Sensitivity
-                            </label>
-                            <div className="mt-1">
-                              <select
-                                id="sensitivity"
-                                name="sensitivity"
-                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                              >
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                              </select>
-                            </div>
-                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                              Higher sensitivity may result in more false positives.
-                            </p>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label htmlFor="output-format" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Output Format
-                            </label>
-                            <div className="mt-1">
-                              <select
-                                id="output-format"
-                                name="output-format"
-                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                              >
-                                <option>Text</option>
-                                <option>JSON</option>
-                                <option>CSV</option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-6">
-                            <div className="relative flex items-start">
-                              <div className="flex items-center h-5">
-                                <input
-                                  id="decode-base64"
-                                  name="decode-base64"
-                                  type="checkbox"
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                  defaultChecked
-                                />
-                              </div>
-                              <div className="ml-3 text-sm">
-                                <label htmlFor="decode-base64" className="font-medium text-gray-700 dark:text-gray-300">Decode Base64 Content</label>
-                                <p className="text-gray-500 dark:text-gray-400">Automatically detect and decode base64-encoded content to uncover obfuscated commands.</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-6">
-                            <div className="relative flex items-start">
-                              <div className="flex items-center h-5">
-                                <input
-                                  id="performance-report"
-                                  name="performance-report"
-                                  type="checkbox"
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                />
-                              </div>
-                              <div className="ml-3 text-sm">
-                                <label htmlFor="performance-report" className="font-medium text-gray-700 dark:text-gray-300">Generate Performance Report</label>
-                                <p className="text-gray-500 dark:text-gray-400">Include detailed performance metrics in the scan results.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Advanced Options Section */}
-                      <div className="pt-8">
-                        <div>
-                          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Advanced Options</h3>
-                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Fine-tune the scan parameters for advanced users.
-                          </p>
-                        </div>
-
-                        <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                          <div className="sm:col-span-3">
-                            <label htmlFor="max-workers" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Max Worker Threads
-                            </label>
-                            <div className="mt-1">
-                              <input
-                                type="number"
-                                name="max-workers"
-                                id="max-workers"
-                                min="1"
-                                max="32"
-                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                placeholder="Auto"
-                              />
-                            </div>
-                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                              Leave empty for auto-detection based on CPU cores.
-                            </p>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label htmlFor="log-level" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Log Level
-                            </label>
-                            <div className="mt-1">
-                              <select
-                                id="log-level"
-                                name="log-level"
-                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                              >
-                                <option>Error</option>
-                                <option>Warning</option>
-                                <option>Info</option>
-                                <option>Debug</option>
-                                <option>Verbose</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
+                      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
+                        Scan your Office 365 tenant for cryptojacking indicators in Exchange, SharePoint, OneDrive, and Teams.
+                      </p>
+                      <div className="mt-4">
+                        <Link href="/scan/o365" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800">
+                          Configure O365 Scan
+                        </Link>
                       </div>
                     </div>
-
-                    <div className="pt-5">
-                      <div className="flex justify-end">
-                        <button
-                          type="button"
-                          className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
-                        >
-                          Reset
-                        </button>
-                        <button
-                          type="submit"
-                          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800"
-                        >
-                          Start Scan
-                        </button>
+                    
+                    {/* Local System Scan Card */}
+                    <div className="bg-white dark:bg-gray-700 overflow-hidden shadow rounded-lg border border-gray-200 dark:border-gray-600 p-4 hover:shadow-md transition-shadow duration-300">
+                      <div className="flex items-center mb-4">
+                        <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                          <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                          </svg>
+                        </div>
+                        <h3 className="ml-4 text-lg font-medium text-gray-900 dark:text-white">Local System Scan</h3>
+                      </div>
+                      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
+                        Scan your local system for cryptojacking indicators in files, processes, and scheduled tasks.
+                      </p>
+                      <div className="mt-4">
+                        <Link href="/scan" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-green-700 dark:hover:bg-green-800">
+                          Configure Local Scan
+                        </Link>
                       </div>
                     </div>
-                  </form>
+                    
+                    {/* Cloud Services Scan Card */}
+                    <div className="bg-white dark:bg-gray-700 overflow-hidden shadow rounded-lg border border-gray-200 dark:border-gray-600 p-4 hover:shadow-md transition-shadow duration-300">
+                      <div className="flex items-center mb-4">
+                        <div className="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                          <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                          </svg>
+                        </div>
+                        <h3 className="ml-4 text-lg font-medium text-gray-900 dark:text-white">Cloud Services Scan</h3>
+                      </div>
+                      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
+                        Scan your AWS, Azure, or Google Cloud resources for cryptojacking indicators.
+                      </p>
+                      <div className="mt-4">
+                        <Link href="/scan" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:bg-purple-700 dark:hover:bg-purple-800">
+                          Configure Cloud Scan
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 bg-gray-50 dark:bg-gray-900 p-4 rounded-md">
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">About Scanning</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      CryptoDetector scans your selected environment for indicators of cryptojacking activity. 
+                      The scan analyzes scripts, files, and configurations for patterns associated with cryptocurrency mining.
+                      Select the appropriate scan type above to begin configuring your scan.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

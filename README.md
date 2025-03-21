@@ -50,7 +50,7 @@ This script is designed to detect cryptojacking malware that may be hidden in st
 1. Clone or download the repository:
 
 ```bash
-git clone https://github.com/yourusername/crypto-detector.git
+git clone https://github.com/TargetProof/crypto-detector.git
 cd crypto-detector
 ```
 
