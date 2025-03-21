@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 
 export default function ResultsPage() {
   // Mock data for scan results
@@ -153,134 +154,63 @@ export default function ResultsPage() {
               </div>
             </div>
 
-            {/* Summary and Charts */}
+            {/* Detections List */}
             <div className="mt-8 px-4 sm:px-0">
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {/* Summary Card */}
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                  <div className="px-4 py-5 sm:p-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Summary</h3>
-                    <div className="mt-5 grid grid-cols-2 gap-5">
-                      <div className="bg-gray-50 dark:bg-gray-700 overflow-hidden shadow rounded-lg">
-                        <div className="px-4 py-5 sm:p-6">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                              Total Detections
-                            </dt>
-                            <dd className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">
-                              {scanResults.summary.total}
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                      <div className="bg-red-50 dark:bg-red-900/20 overflow-hidden shadow rounded-lg">
-                        <div className="px-4 py-5 sm:p-6">
-                          <dl>
-                            <dt className="text-sm font-medium text-red-800 dark:text-red-300 truncate">
-                              High Severity
-                            </dt>
-                            <dd className="mt-1 text-3xl font-semibold text-red-800 dark:text-red-300">
-                              {scanResults.summary.high}
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                      <div className="bg-yellow-50 dark:bg-yellow-900/20 overflow-hidden shadow rounded-lg">
-                        <div className="px-4 py-5 sm:p-6">
-                          <dl>
-                            <dt className="text-sm font-medium text-yellow-800 dark:text-yellow-300 truncate">
-                              Medium Severity
-                            </dt>
-                            <dd className="mt-1 text-3xl font-semibold text-yellow-800 dark:text-yellow-300">
-                              {scanResults.summary.medium}
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                      <div className="bg-blue-50 dark:bg-blue-900/20 overflow-hidden shadow rounded-lg">
-                        <div className="px-4 py-5 sm:p-6">
-                          <dl>
-                            <dt className="text-sm font-medium text-blue-800 dark:text-blue-300 truncate">
-                              Low Severity
-                            </dt>
-                            <dd className="mt-1 text-3xl font-semibold text-blue-800 dark:text-blue-300">
-                              {scanResults.summary.low}
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Severity Distribution Chart */}
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                  <div className="px-4 py-5 sm:p-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Severity Distribution</h3>
-                    <div className="mt-5 flex items-center justify-center">
-                      {/* Placeholder for Pie Chart */}
-                      <div className="relative w-48 h-48 rounded-full overflow-hidden">
-                        <div className="absolute inset-0 bg-red-500" style={{ clipPath: `polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%)` }}></div>
-                        <div className="absolute inset-0 bg-yellow-500" style={{ clipPath: `polygon(50% 50%, 0 50%, 0 100%, 100% 100%, 100% 50%)` }}></div>
-                        <div className="absolute inset-0 bg-blue-500" style={{ clipPath: `polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%)` }}></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="bg-white dark:bg-gray-800 rounded-full w-24 h-24 flex items-center justify-center">
-                            <span className="text-lg font-bold text-gray-900 dark:text-white">{scanResults.summary.total}</span>
+              <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Detections</h2>
+              <div className="mt-2 flex flex-col">
+                <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
+                      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                        {scanResults.detections.map((detection) => (
+                          <div key={detection.id} className="bg-white dark:bg-gray-800 px-4 py-5 sm:px-6">
+                            <div className="flex items-center justify-between">
+                              <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white flex items-center">
+                                <span className={`mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                  detection.severity === 'HIGH' ? 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100' :
+                                  detection.severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100' :
+                                  'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100'
+                                }`}>
+                                  {detection.severity}
+                                </span>
+                                {detection.source} - {detection.itemType}
+                              </h3>
+                              <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+                                Score: {detection.score}
+                              </p>
+                            </div>
+                            <div className="mt-4">
+                              <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-md">
+                                <pre className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap font-mono">
+                                  {detection.content}
+                                </pre>
+                              </div>
+                            </div>
+                            <div className="mt-4">
+                              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">Matches:</h4>
+                              <ul className="mt-2 divide-y divide-gray-200 dark:divide-gray-700">
+                                {detection.matches.map((match, index) => (
+                                  <li key={index} className="py-2 flex justify-between">
+                                    <div className="flex items-center">
+                                      <span className="text-sm text-gray-900 dark:text-white">{match.match}</span>
+                                      <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">({match.category})</span>
+                                    </div>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400">Weight: {match.weight}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-4 grid grid-cols-3 gap-2 text-sm">
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">High: {scanResults.summary.high}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">Medium: {scanResults.summary.medium}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">Low: {scanResults.summary.low}</span>
+                        ))}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Detection Results */}
-            <div className="mt-8 px-4 sm:px-0">
-              <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
-                <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Detection Results</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                      Detailed findings from the cryptojacking detection scan.
-                    </p>
-                  </div>
-                  <div className="flex space-x-3">
-                    <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                      Export PDF
-                    </button>
-                    <button className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600">
-                      Export CSV
-                    </button>
-                  </div>
-                </div>
-                <div className="border-t border-gray-200 dark:border-gray-700">
-                  {/* Filter Controls */}
-                  <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:px-6">
-                    <div className="flex space-x-2">
-                      <button className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        All
-                      </button>
-                      <button className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700">
-                        High
-                      </button>
-                      <button className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700">
-                        Medium
-                      </button>
-                      <button className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700">
-                        Low
-                      </but<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}

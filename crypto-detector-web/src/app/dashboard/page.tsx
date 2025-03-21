@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 
 export default function Dashboard() {
   // Mock data for dashboard
@@ -160,118 +161,73 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Charts Section */}
+            {/* Recent Scans Table */}
             <div className="mt-8 px-4 sm:px-0">
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {/* Threat Distribution Chart */}
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                  <div className="px-4 py-5 sm:p-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Threat Distribution</h3>
-                    <div className="mt-2 h-64 flex items-center justify-center">
-                      {/* Placeholder for Pie Chart */}
-                      <div className="relative w-48 h-48 rounded-full overflow-hidden">
-                        <div className="absolute inset-0 bg-red-500" style={{ clipPath: 'polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%)' }}></div>
-                        <div className="absolute inset-0 bg-yellow-500" style={{ clipPath: 'polygon(50% 50%, 0 50%, 0 100%, 100% 100%, 100% 50%)' }}></div>
-                        <div className="absolute inset-0 bg-blue-500" style={{ clipPath: 'polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%)' }}></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="bg-white dark:bg-gray-800 rounded-full w-24 h-24 flex items-center justify-center">
-                            <span className="text-lg font-bold text-gray-900 dark:text-white">{stats.highAlerts + stats.mediumAlerts + stats.lowAlerts}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-4 grid grid-cols-3 gap-2 text-sm">
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">High: {stats.highAlerts}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">Medium: {stats.mediumAlerts}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                        <span className="text-gray-700 dark:text-gray-300">Low: {stats.lowAlerts}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* System Resource Usage */}
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                  <div className="px-4 py-5 sm:p-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">System Resource Usage</h3>
-                    <div className="mt-2 h-64 flex flex-col justify-center">
-                      <div className="relative pt-1">
-                        <div className="flex mb-2 items-center justify-between">
-                          <div>
-                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 dark:text-blue-200 dark:bg-blue-800">
-                              CPU
-                            </span>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-xs font-semibold inline-block text-blue-600 dark:text-blue-400">
-                              {stats.systemUsage}%
-                            </span>
-                          </div>
-                        </div>
-                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200 dark:bg-blue-800">
-                          <div style={{ width: `${stats.systemUsage}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                        </div>
-                      </div>
-                      <div className="relative pt-1">
-                        <div className="flex mb-2 items-center justify-between">
-                          <div>
-                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 dark:text-green-200 dark:bg-green-800">
-                              Memory
-                            </span>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-xs font-semibold inline-block text-green-600 dark:text-green-400">
-                              {stats.systemUsage - 5}%
-                            </span>
-                          </div>
-                        </div>
-                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200 dark:bg-green-800">
-                          <div style={{ width: `${stats.systemUsage - 5}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
-                        </div>
-                      </div>
-                      <div className="relative pt-1">
-                        <div className="flex mb-2 items-center justify-between">
-                          <div>
-                            <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200 dark:text-purple-200 dark:bg-purple-800">
-                              Disk
-                            </span>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-xs font-semibold inline-block text-purple-600 dark:text-purple-400">
-                              {stats.systemUsage + 10}%
-                            </span>
-                          </div>
-                        </div>
-                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-200 dark:bg-purple-800">
-                          <div style={{ width: `${stats.systemUsage + 10}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
-                        </div>
-                      </div>
+              <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Recent Scans</h2>
+              <div className="mt-2 flex flex-col">
+                <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
+                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead className="bg-gray-50 dark:bg-gray-700">
+                          <tr>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                              ID
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                              Date
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                              Target
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                              Status
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                              Alerts
+                            </th>
+                            <th scope="col" className="relative px-6 py-3">
+                              <span className="sr-only">View</span>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                          {recentScans.map((scan) => (
+                            <tr key={scan.id}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                {scan.id}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {scan.date}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {scan.target}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                                  {scan.status}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {scan.alerts}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <Link href={`/results/${scan.id}`} className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                  View
+                                </Link>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Recent Scans Table */}
-            <div className="mt-8 px-4 sm:px-0">
-              <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
-                <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Recent Scans</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                      Latest cryptojacking detection scans and their results.
-                    </p>
-                  </div>
-                  <Link href="/scan" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Start New Scan
-                  </Link>
-                </div>
-                <div className="border-t border-gray-200 dark:border-gray-700">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-70<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}

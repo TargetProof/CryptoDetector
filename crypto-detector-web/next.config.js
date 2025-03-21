@@ -1,15 +1,14 @@
-module.exports = {
-    output: 'export',
-    distDir: 'out',
-    eslint: {
-      // Warning: This allows production builds to successfully complete even if
-      // your project has ESLint errors.
-      ignoreDuringBuilds: true,
-    },
-    typescript: {
-      // Warning: This allows production builds to successfully complete even if
-      // your project has type errors.
-      ignoreBuildErrors: true,
-    },
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  output: 'export',
+  // Ensure compatibility with TypeScript and React versions
+  experimental: {
+    // Remove any experimental features that might cause issues
+    // with the downgraded versions
   }
-  
+}
+
+module.exports = nextConfig

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 
 export default function ScanPage() {
   return (
@@ -168,7 +169,7 @@ export default function ScanPage() {
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                               >
                                 <option>Low</option>
-                                <option selected>Medium</option>
+                                <option>Medium</option>
                                 <option>High</option>
                               </select>
                             </div>
@@ -188,30 +189,45 @@ export default function ScanPage() {
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                               >
                                 <option>Text</option>
-                                <option selected>JSON</option>
+                                <option>JSON</option>
                                 <option>CSV</option>
                               </select>
                             </div>
                           </div>
 
                           <div className="sm:col-span-6">
-                            <label htmlFor="workers" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Workers: <span id="worker-value">4</span>
-                            </label>
-                            <div className="mt-1">
-                              <input
-                                type="range"
-                                id="workers"
-                                name="workers"
-                                min="1"
-                                max="8"
-                                value="4"
-                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                              />
+                            <div className="relative flex items-start">
+                              <div className="flex items-center h-5">
+                                <input
+                                  id="decode-base64"
+                                  name="decode-base64"
+                                  type="checkbox"
+                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                                  defaultChecked
+                                />
+                              </div>
+                              <div className="ml-3 text-sm">
+                                <label htmlFor="decode-base64" className="font-medium text-gray-700 dark:text-gray-300">Decode Base64 Content</label>
+                                <p className="text-gray-500 dark:text-gray-400">Automatically detect and decode base64-encoded content to uncover obfuscated commands.</p>
+                              </div>
                             </div>
-                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                              Number of parallel workers to use for scanning. Higher values may improve performance but increase resource usage.
-                            </p>
+                          </div>
+
+                          <div className="sm:col-span-6">
+                            <div className="relative flex items-start">
+                              <div className="flex items-center h-5">
+                                <input
+                                  id="performance-report"
+                                  name="performance-report"
+                                  type="checkbox"
+                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                                />
+                              </div>
+                              <div className="ml-3 text-sm">
+                                <label htmlFor="performance-report" className="font-medium text-gray-700 dark:text-gray-300">Generate Performance Report</label>
+                                <p className="text-gray-500 dark:text-gray-400">Include detailed performance metrics in the scan results.</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -221,42 +237,76 @@ export default function ScanPage() {
                         <div>
                           <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Advanced Options</h3>
                           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Additional configuration options for advanced users.
+                            Fine-tune the scan parameters for advanced users.
                           </p>
                         </div>
 
                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                          <div className="sm:col-span-6">
-                            <div className="relative flex items-start">
-                              <div className="flex items-center h-5">
-                                <input
-                                  id="scan-archives"
-                                  name="scan-archives"
-                                  type="checkbox"
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                />
-                              </div>
-                              <div className="ml-3 text-sm">
-                                <label htmlFor="scan-archives" className="font-medium text-gray-700 dark:text-gray-300">Scan Archives</label>
-                                <p className="text-gray-500 dark:text-gray-400">Scan inside archive files (zip, tar, etc.) for cryptojacking indicators.</p>
-                              </div>
+                          <div className="sm:col-span-3">
+                            <label htmlFor="max-workers" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                              Max Worker Threads
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                type="number"
+                                name="max-workers"
+                                id="max-workers"
+                                min="1"
+                                max="32"
+                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                placeholder="Auto"
+                              />
                             </div>
+                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                              Leave empty for auto-detection based on CPU cores.
+                            </p>
                           </div>
 
-                          <div className="sm:col-span-6">
-                            <div className="relative flex items-start">
-                              <div className="flex items-center h-5">
-                                <input
-                                  id="detect-obfuscation"
-                                  name="detect-obfuscation"
-                                  type="checkbox"
-                                  checked
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
-                                />
-                              </div>
-                              <div className="ml-3 text-sm">
-                                <label htmlFor="detect-obfuscation" className="font-medium text-gray-700 dark:text-gray-300">Detect Obfuscation</label>
-                                <p className="text-gray-500 dark:text-gray-400">Attempt to detect obfuscated cryptojacking code.</p>
-                              </div>
+                          <div className="sm:col-span-3">
+                            <label htmlFor="log-level" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                              Log Level
+                            </label>
+                            <div className="mt-1">
+                              <select
+                                id="log-level"
+                                name="log-level"
+                                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                              >
+                                <option>Error</option>
+                                <option>Warning</option>
+                                <option>Info</option>
+                                <option>Debug</option>
+                                <option>Verbose</option>
+                              </select>
                             </div>
-                          </di<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-5">
+                      <div className="flex justify-end">
+                        <button
+                          type="button"
+                          className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          type="submit"
+                          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800"
+                        >
+                          Start Scan
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
