@@ -2,14 +2,31 @@
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
-  // other config options...
-};
-
-module.exports = {
-  output: 'standalone',
-  reactStrictMode: true,
-  // Add this to handle dynamic API routes
+  
+  // This tells Next.js that some routes are intentionally dynamic
   experimental: {
     allowDynamicRoutes: true
+  },
+  
+  // Optional: Configure image domains if you're using next/image
+  images: {
+    domains: ['example.com'],
+  },
+  
+  // Optional: Add environment variables that should be available at build time
+  env: {
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://crypto-detector.azurewebsites.net'
+  },
+  
+  // Optional: Configure redirects if needed
+  async redirects()  {
+    return [];
+  },
+  
+  // Optional: Configure headers if needed
+  async headers() {
+    return [];
   }
 };
+
+module.exports = nextConfig;

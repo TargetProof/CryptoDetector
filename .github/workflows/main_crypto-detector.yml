@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - crypto-detector
 
 on:
@@ -20,28 +23,11 @@ jobs:
         with:
           node-version: '22.x'
           
-      - name: Check repository structure
-        run: |
-          ls -la
-          # Find the src directory which should contain the app directory
-          find . -type d -name "app" | grep -v "node_modules"
-          
       - name: npm install and build
         run: |
-          # First check if we're in a monorepo structure
-          if [ -d "crypto-detector-web" ]; then
-            cd crypto-detector-web
-            echo "Building from crypto-detector-web directory"
-          else
-            echo "Building from repository root"
-          fi
-          
-          # Check if we have the correct Next.js structure
-          if [ ! -d "src/app" ] && [ ! -d "app" ] && [ ! -d "pages" ]; then
-            echo "ERROR: Could not find Next.js app or pages directory"
-            find . -type d | grep -v "node_modules" | sort
-            exit 1
-          fi
+          cd crypto-detector-web
+          npm install
+          npm run build
           
       - name: Create deployment package
         run: |
@@ -50,18 +36,18 @@ jobs:
           # Create the deployment package from the standalone output
           mkdir -p deployment
           cp -r .next/standalone/* deployment/
+          mkdir -p deployment/.next
           cp -r .next/static deployment/.next/
           
           # Create public directory if it doesn't exist
           mkdir -p deployment/public
-          if [ -d "public" ]; then
+          if [ -d "public" ] && [ "$(ls -A public) " ]; then
             cp -r public/* deployment/public/ || true
           fi
           
           # Create the zip file
           cd deployment
           zip -r ../../release.zip ./*
-        
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
