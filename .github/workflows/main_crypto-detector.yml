@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # This is required for actions/checkout
+      contents: read #This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -21,30 +21,30 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x' # Update to the latest Node.js version
-
+          node-version: '22.x'
+          
       - name: npm install and build
         run: |
           cd crypto-detector-web
           npm install
           npm run build
-
+          
       - name: Create deployment package
         run: |
           cd crypto-detector-web
-
+          
           # Create the deployment package from the standalone output
           mkdir -p deployment
           cp -r .next/standalone/* deployment/
           mkdir -p deployment/.next
           cp -r .next/static deployment/.next/
-
+          
           # Create public directory if it doesn't exist
           mkdir -p deployment/public
-          if [ -d "public" ] && [ "$(ls -A public)" ]; then
+          if [ -d "public" ] && [ "$(ls -A public) " ]; then
             cp -r public/* deployment/public/ || true
           fi
-
+          
           # Create the zip file
           cd deployment
           zip -r ../../release.zip ./*
@@ -62,8 +62,8 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
 
     steps:
       - name: Download artifact from build job
@@ -73,7 +73,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
