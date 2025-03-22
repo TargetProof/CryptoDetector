@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
      clientId,
      clientSecret,
      scope: 'https://graph.microsoft.com/.default'
-    }) ;
+    });
 
     if (!authResult.authenticated) {
       return NextResponse.json(
