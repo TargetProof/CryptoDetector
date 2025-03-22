@@ -43,31 +43,14 @@ jobs:
             exit 1
           fi
           
-          npm install
-          npm run build
-          
       - name: Create deployment package
         run: |
-          # Determine the build directory
-          if [ -d "crypto-detector-web" ]; then
-            BUILD_DIR="crypto-detector-web"
-          else
-            BUILD_DIR="."
-          fi
+          cd crypto-detector-web
           
-          # Check if the build was successful
-          if [ ! -d "$BUILD_DIR/.next" ]; then
-            echo "ERROR: Build directory not found"
-            ls -la
-            exit 1
-          fi
-          
-          # Create the deployment package
-          cd $BUILD_DIR
+          # Create the deployment package from the standalone output
           mkdir -p deployment
-          cp -r .next deployment/
-          cp -r node_modules deployment/
-          cp package.json deployment/
+          cp -r .next/standalone/* deployment/
+          cp -r .next/static deployment/.next/
           
           # Create public directory if it doesn't exist
           mkdir -p deployment/public
@@ -78,6 +61,7 @@ jobs:
           # Create the zip file
           cd deployment
           zip -r ../../release.zip ./*
+        
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
