@@ -3,10 +3,14 @@ export * from './types';
 export * from './auth';
 export * from './scanner';
 
-// Export a convenience function for running a scan
+
+// Import from types.ts only
+import { O365ScanOptions, O365ScanResult } from './types';
 import { authenticateO365 } from './auth';
-import { scanO365Tenant, O365ScanOptions } from './scanner';
-import { O365ScanResult, O365ScanConfig } from './types';
+import { scanO365Tenant } from './scanner';
+
+// Export a convenience function for running a scan
+export { authenticateO365, scanO365Tenant, O365ScanOptions, O365ScanResult };
 
 /**
  * Run a complete O365 scan with a single function call
