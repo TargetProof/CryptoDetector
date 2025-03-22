@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/d8cb6dbb-90e3-4519-ae04-18d825af5e0b/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/crypto-detector",
+    "appService.deploySubpath": "."
+}
