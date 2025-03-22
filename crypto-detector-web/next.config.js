@@ -5,4 +5,11 @@ const nextConfig = {
   // other config options...
 };
 
-module.exports = nextConfig;
+module.exports = {
+  output: 'standalone',
+  reactStrictMode: true,
+  // Add this to handle dynamic API routes
+  experimental: {
+    allowDynamicRoutes: true
+  }
+};
