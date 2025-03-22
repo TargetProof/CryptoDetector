@@ -10,7 +10,7 @@ const nextConfig = {
 };
 
 module.exports = {
-  nextConfig;
+  nextConfig,
   output: 'standalone',
   // This helps with Azure deployment
 }
