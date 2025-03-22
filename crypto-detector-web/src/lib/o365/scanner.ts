@@ -54,20 +54,12 @@ function analyzeCryptoMiningIndicators(content: string): { score: number; matche
   return { score, matches };
 }
 
+// Function to scan O365 tenant
 export async function scanO365Tenant(
   authResult: AuthResult,
   tenant: string,
   options: O365ScanOptions = {}
 ): Promise<O365ScanResult> {
-
-
-// In src/lib/o365/scanner.ts, update the scanO365Tenant function:
-export async function scanO365Tenant(
-  authResult: AuthResult,
-  tenant: string,
-  options: O365ScanOptions = {}
-): Promise<O365ScanResult> {
-
   // Validate authentication
   if (!authResult.authenticated || !authResult.token) {
     return {
@@ -125,9 +117,6 @@ export async function scanO365Tenant(
         console.error('Error scanning Exchange Online:', error);
       }
     }
-    
-    // Implement similar scanning for SharePoint, OneDrive, and Teams
-    // ...
     
     // Calculate summary
     const summary = {
