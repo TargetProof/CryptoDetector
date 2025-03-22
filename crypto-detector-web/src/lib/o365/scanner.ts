@@ -2,6 +2,14 @@ import axios from 'axios';
 import { O365ScanOptions, O365ScanResult } from './types';
 import { AuthResult } from './auth';
 
+export interface O365ScanOptions {
+  includeEmail?: boolean;
+  includeSharePoint?: boolean;
+  includeOneDrive?: boolean;
+  includeTeams?: boolean;
+  scanDepth?: string;
+}
+
 // Comprehensive implementation for crypto mining detection
 function analyzeCryptoMiningIndicators(content: string): { score: number; matches: any[] } {
   // Common crypto mining indicators
