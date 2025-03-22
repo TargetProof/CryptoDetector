@@ -32,6 +32,9 @@ const nextConfig = {
   // Add this line to specify the base directory
   basePath: '/src',
 
+  // Add this line to specify the page extensions
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src');
     return config;
