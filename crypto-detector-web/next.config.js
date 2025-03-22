@@ -5,7 +5,8 @@ const nextConfig = {
   
   // This tells Next.js that some routes are intentionally dynamic
   experimental: {
-    allowDynamicRoutes: true
+    allowDynamicRoutes: true,
+    appDir: true,
   },
   
   // Optional: Configure image domains if you're using next/image
@@ -26,7 +27,10 @@ const nextConfig = {
   // Optional: Configure headers if needed
   async headers() {
     return [];
-  }
+  },
+
+  // Add this line to specify the base directory
+  basePath: '/src',
 };
 
 module.exports = nextConfig;
