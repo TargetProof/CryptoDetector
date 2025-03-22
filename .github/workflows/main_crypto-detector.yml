@@ -90,7 +90,6 @@ jobs:
 
       - name: Prepare for deployment
         run: |
-          cd crypto-detector-web
           mkdir -p .next/standalone/public
           # Only copy if public directory has files
           if [ -d "public" ] && [ "$(ls -A public)" ]; then
