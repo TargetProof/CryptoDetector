@@ -1,7 +1,7 @@
 // src/app/api/o365scan/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticateO365 } from './lib/o365/auth';
-import { scanO365Tenant } from './lib/o365/scanner';
+import { authenticateO365 } from '@/lib/o365/auth';
+import { scanO365Tenant } from '@/lib/o365/scanner';
 
 // Add this line to make the route dynamic
 export const dynamic = 'force-dynamic';
