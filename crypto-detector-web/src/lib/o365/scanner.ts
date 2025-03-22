@@ -1,10 +1,51 @@
-// In src/lib/o365/scanner.ts, update the scanO365Tenant function:
+// Add these interface definitions at the top of scanner.ts
+import axios from 'axios';
 
+// Define or import AuthResult
+interface AuthResult {
+  authenticated: boolean;
+  token?: string;
+}
+
+export interface O365ScanOptions {
+  includeEmail?: boolean;
+  includeSharePoint?: boolean;
+  includeOneDrive?: boolean;
+  includeTeams?: boolean;
+  scanDepth?: string;
+}
+
+export interface O365ScanResult {
+  scanId: string;
+  timestamp: string;
+  tenant: string;
+  status: 'completed' | 'failed' | 'in-progress';
+  summary: {
+    total: number;
+    high: number;
+    medium: number;
+    low: number;
+  };
+  detections: any[];
+  error?: string;
+}
+
+// Define the analyzeCryptoMiningIndicators function
+function analyzeCryptoMiningIndicators(content: string) {
+  // Mock implementation for now
+  return {
+    score: 0,
+    matches: []
+  };
+}
+
+// In src/lib/o365/scanner.ts, update the scanO365Tenant function:
 export async function scanO365Tenant(
   authResult: AuthResult,
   tenant: string,
   options: O365ScanOptions = {}
 ): Promise<O365ScanResult> {
+
   // Validate authentication
   if (!authResult.authenticated || !authResult.token) {
     return {
