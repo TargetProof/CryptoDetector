@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   reactStrictMode: true,
   
   // This tells Next.js that some routes are intentionally dynamic
   experimental: {
-    allowDynamicRoutes: true,
     appDir: true,
   },
   
