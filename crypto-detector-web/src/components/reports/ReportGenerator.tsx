@@ -54,7 +54,7 @@ export default function ReportGenerator({ scanResults }: ReportGeneratorProps) {
           <Button
             onClick={() => handleGenerateReport('csv')}
             disabled={isGenerating}
-            variant="outline"
+            variant="border border-gray-300 bg-white text-gray-700"
           >
             {isGenerating ? 'Generating...' : 'CSV Export'}
           </Button>
