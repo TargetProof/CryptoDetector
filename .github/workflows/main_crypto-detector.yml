@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x' # Ensure this matches the version supported by Azure
+          node-version: '18.17.0' # Update to the required Node.js version
 
       - name: npm install and build
         run: |
