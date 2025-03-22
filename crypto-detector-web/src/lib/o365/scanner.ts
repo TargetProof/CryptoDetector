@@ -32,7 +32,7 @@ function analyzeCryptoMiningIndicators(content: string): { score: number; matche
     { pattern: /hidden.*startup/i, category: 'SuspiciousBehavior', weight: 6 }
   ];
   
-  const matches = [];
+  const matches: { match: string; category: string; weight: number }[] = [];
   let score = 0;
   
   // Check content against all indicators
