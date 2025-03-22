@@ -118,6 +118,9 @@ export async function scanO365Tenant(
       }
     }
     
+    // Implement similar scanning for SharePoint, OneDrive, and Teams
+    // ...
+    
     // Calculate summary
     const summary = {
       total: detections.length,
