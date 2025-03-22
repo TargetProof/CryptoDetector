@@ -18,6 +18,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: npm install and build
+      run: |
+        cd crypto-detector-web
+        npm install
+        npm run build
+    
+      - name: Zip artifact for deployment
+      run: |
+        cd crypto-detector-web
+        zip -r ../release.zip .
+
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
