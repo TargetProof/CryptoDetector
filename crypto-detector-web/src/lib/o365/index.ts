@@ -9,11 +9,12 @@ import { O365ScanOptions, O365ScanResult } from './types';
 import { authenticateO365 } from './auth';
 import { scanO365Tenant } from './scanner';
 
-// Export a convenience function for running a scan
-import { authenticateO365 } from './auth';
-import { scanO365Tenant, O365ScanOptions } from './scanner';
-import { O365ScanResult, O365ScanConfig } from './types';
-
+export interface O365ScanConfig {
+  tenantId: string;
+  clientId?: string;
+  clientSecret?: string;
+  scanOptions: O365ScanOptions;
+}
 /**
  * Run a complete O365 scan with a single function call
  * This is a convenience wrapper around the authentication and scanning functions
