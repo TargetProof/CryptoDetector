@@ -103,7 +103,17 @@ function getMockResults(scanId: string) {
 }
 
 function generateMockDetections(summary: { total: number, high: number, medium: number, low: number }) {
-  const detections = [];
+  type Detection = {
+    id: number;
+    severity: string;
+    source: string;
+    itemType: string;
+    score: number;
+    content: string;
+    matches: { match: string; category: string; weight: number; }[];
+  };
+
+  const detections: Detection[] = [];
   
   // Generate high severity detections
   for (let i = 0; i < summary.high; i++) {
@@ -141,15 +151,15 @@ function generateMockDetections(summary: { total: number, high: number, medium: 
     detections.push({
       id: summary.high + summary.medium + i + 1,
       severity: 'LOW',
-      source: ['Local System', 'Container Image', 'CloudFormation Template'][Math.floor(Math.random() * 3)],
-      itemType: ['Cron Job', 'Shell Script', 'Configuration File'][Math.floor(Math.random() * 3)],
+      source: ['AWS S3', 'GCP Storage', 'Azure Blob'][Math.floor(Math.random() * 3)],
+      itemType: ['Bucket Policy', 'Storage Configuration', 'Access Control'][Math.floor(Math.random() * 3)],
       score: 20 + Math.floor(Math.random() * 30),
-      content: '*/15 * * * * /usr/local/bin/monitor-cpu --threads=4 --background',
+      content: '#!/bin/bash\naws s3 ls\n',
       matches: [
-        { match: 'monitor-cpu', category: 'Suspicious Name', weight: 3 }
+        { match: 'aws s3', category: 'Command', weight: 4 }
       ]
     });
   }
-  
+
   return detections;
 }
