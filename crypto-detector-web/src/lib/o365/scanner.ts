@@ -86,7 +86,7 @@ export async function scanO365Tenant(
         Authorization: `Bearer ${authResult.token}`,
         'Content-Type': 'application/json'
       }
-    }) ;
+    });
     
     // Scan Exchange Online emails if enabled
     if (options.includeEmail !== false) {
