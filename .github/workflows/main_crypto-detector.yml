@@ -23,11 +23,25 @@ jobs:
         with:
           node-version: '22.x'
           
+      - name: Check repository structure
+        run: |
+            ls -la
+            
       - name: npm install and build
         run: |
-          cd crypto-detector-web
-          npm install
-          npm run build
+           if [ -d "crypto-detector-web" ]; then
+              cd crypto-detector-web
+            elif [ -d "crypto-detector" ]; then
+              cd crypto-detector
+            else
+              echo "Cannot find the Next.js application directory"
+              ls -la
+              exit 1
+            fi
+            
+            npm install
+            npm run build
+        
           
       - name: Prepare for deployment
         run: |
