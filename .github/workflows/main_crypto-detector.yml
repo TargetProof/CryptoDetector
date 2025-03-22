@@ -74,6 +74,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9FA10219E0B94D8690F7B4ECD64DDCBC }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AB12A1108B654E65A98186F00AA8216F }}
 
+      - name: Prepare for deployment
+        run: |
+          cd crypto-detector-web
+          mkdir -p .next/standalone/public
+          # Only copy if public directory has files
+          if [ -d "public" ] && [ "$(ls -A public)" ]; then
+            cp -r public/* .next/standalone/public/
+          fi
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
