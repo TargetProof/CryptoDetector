@@ -31,6 +31,13 @@ const nextConfig = {
 
   // Add this line to specify the base directory
   basePath: '/src',
+
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    return config;
+  },
 };
+
+const path = require('path');
 
 module.exports = nextConfig;
